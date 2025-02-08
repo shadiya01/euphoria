@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Listings</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <header>
+        <h1>Job Listings</h1>
+    </header>
+
+    <main>
+        <!-- Search Bar -->
+        <form action="/search" method="GET">
+            <input type="text" name="query" placeholder="Search for jobs..." required>
+            <button type="submit">Search</button>
+        </form>
+
+        <!-- Job Submission Form -->
+        <h2>Add a New Job</h2>
+        <form action="/add-job" method="POST">
+            <input type="text" name="title" placeholder="Job Title" required>
+            <input type="text" name="company" placeholder="Company Name" required>
+            <input type="text" name="location" placeholder="Location" required>
+            <input type="url" name="details_url" placeholder="Job Details URL" required>
+            <button type="submit">Add Job</button>
+        </form>
+
+        <!-- Job Listings -->
+        <h2>Available Jobs</h2>
+        <div class="jobs">
+            {% for job in jobs %}
+                <div class="job">
+                    <h3>{{ job.title }}</h3>
+                    <p>Company: {{ job.company }}</p>
+                    <p>Location: {{ job.location }}</p>
+                    <a href="{{ job.details_url }}" target="_blank">View Details</a>
+                </div>
+            {% endfor %}
+        </div>
+    </main>
+</body>
+</html>

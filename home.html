@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Vacancies</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header .logo img {
+            height: 50px;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        /* Search Bar */
+        .search-bar {
+            text-align: center;
+            padding: 50px 20px;
+            background-color: #0073e6;
+            color: #fff;
+        }
+
+        .search-bar h1 {
+            margin-bottom: 20px;
+        }
+
+        .search-bar input {
+            padding: 10px;
+            width: 300px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .search-bar button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #ff5722;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        /* Job Listings */
+        .job-listings {
+            padding: 20px;
+        }
+
+        .job-listings h2 {
+            margin-bottom: 20px;
+        }
+
+        .jobs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .job {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: calc(33.333% - 20px);
+        }
+
+        .job h3 {
+            margin-top: 0;
+        }
+
+        .job a {
+            display: inline-block;
+            margin-top: 10px;
+            color: #0073e6;
+            text-decoration: none;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: #fff;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="" alt="Company Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Profile</a></li>
+                <li><a href="#">Companies</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="search-bar">
+            <h1>Find Your Dream Job</h1>
+            <form>
+                <input type="text" id="searchInput" placeholder="Search for jobs..." required>
+                <button type="button" onclick="searchJobs()">Search</button>
+            </form>
+        </section>
+
+        <section class="job-listings">
+            <h2>Available Jobs</h2>
+            <div class="jobs" id="jobListings">
+                <!-- Job listings will be dynamically inserted here -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Company Vacancies. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const jobsArray = [
+            {
+                title: 'Software Engineer',
+                company: 'Tech Corp',
+                location: 'Remote',
+                detailsLink: 'software_engineering.html'
+            },
+            {
+                title: 'Data Analyst',
+                company: 'Data Inc',
+                location: 'New York',
+                detailsLink: 'data_analyst.html'
+            },
+            {
+                title: 'Product Manager',
+                company: 'Innovate Solutions',
+                location: 'San Francisco',
+                detailsLink: 'product_manager.html'
+            },
+            {
+                title: 'UX Designer',
+                company: 'Creative Agency',
+                location: 'Los Angeles',
+                detailsLink: 'ux_designer.html'
+            },
+            {
+                title: 'Cyber Security Analyst',
+                company: 'SecureTech',
+                location: 'Washington, D.C.',
+                detailsLink: 'cyber_security_analyst.html'
+            },
+            {
+                title: 'DevOps Engineer',
+                company: 'CloudWorks',
+                location: 'Remote',
+                detailsLink: 'devops_engineer.html'
+            },
+            {
+                title: 'Marketing Specialist',
+                company: 'AdCorp',
+                location: 'Chicago',
+                detailsLink: 'marketing_specialist.html'
+            },
+            {
+                title: 'HR Manager',
+                company: 'People First',
+                location: 'Houston',
+                detailsLink: 'hr_manager.html'
+            },
+            {
+                title: 'Financial Analyst',
+                company: 'MoneyMatters',
+                location: 'New York',
+                detailsLink: 'financial_analyst.html'
+            },
+            {
+                title: 'Customer Support Representative',
+                company: 'HelpDesk Inc.',
+                location: 'Miami',
+                detailsLink: 'customer_support_representative.html'
+            }
+        ];
+
+        // Function to display all jobs by default
+        function displayJobs(jobs) {
+            const jobListings = document.getElementById('jobListings');
+            jobListings.innerHTML = ''; // Clear existing job listings
+
+            jobs.forEach(job => {
+                const jobCard = document.createElement('div');
+                jobCard.className = 'job';
+                jobCard.innerHTML = `
+                    <h3>${job.title}</h3>
+                    <p>Company: ${job.company}</p>
+                    <p>Location: ${job.location}</p>
+                    <a href="${job.detailsLink}">View Details</a>
+                `;
+                jobListings.appendChild(jobCard);
+            });
+        }
+
+        // Function to search jobs
+        function searchJobs() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const filteredJobs = jobsArray.filter(job => 
+                job.title.toLowerCase().includes(input) || 
+                job.company.toLowerCase().includes(input) || 
+                job.location.toLowerCase().includes(input)
+            );
+            displayJobs(filteredJobs);
+        }
+
+        // Display all jobs by default when the page loads
+        window.onload = () => displayJobs(jobsArray);
+    </script>
+</body>
+
+</html>
